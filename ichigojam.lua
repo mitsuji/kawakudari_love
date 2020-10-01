@@ -89,6 +89,15 @@ function new_std15 (screen_w, screen_h, buff_w, buff_h)
       end
    end
 
+   o.pset = function (self,x,y)
+      cx = math.floor(x / 2)
+      cy = math.floor(y / 2)
+      c = self:scr(cx,cy)
+      b = 2^(((y % 2)*2) + (x % 2))
+      d = ((math.floor(c / 0x10) == 0x8) and c or 0x80) + b
+      self:set_char(cx,cy,d)
+   end
+
    o.set_char = function (self,x,y,c)
       self.buff[y*self.buff_w+x] = c
    end
