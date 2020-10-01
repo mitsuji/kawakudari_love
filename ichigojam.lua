@@ -1,3 +1,9 @@
+direction = {
+   up    = 0,
+   right = 1,
+   down  = 2,
+   left  = 3,
+}
 
 CHAR_W = 8
 CHAR_H = 8
@@ -51,13 +57,33 @@ function new_std15 (screen_w, screen_h, buff_w, buff_h)
       end
    end
 
-   o.scroll = function (self)
+   o.scroll = function (self,dir)
       for y = 0, self.buff_h-1 do
 	 for x = 0, self.buff_w-1 do
-	    if y == self.buff_h-1 then
-	       self:set_char(x,y,0)
-	    else
-	       self:set_char(x,y,self:scr(x,y+1))
+	    if dir == direction.up then
+	       if y == self.buff_h-1 then
+		  self:set_char(x,y,0)
+	       else
+		  self:set_char(x,y,self:scr(x,y+1))
+	       end
+	    elseif dir == direction.right then
+	       if x == self.buff_w-1 then
+		  self:set_char(self.buff_w-x-1,y,0)
+	       else
+		  self:set_char(self.buff_w-x-1,y,self:scr((self.buff_w-x-1)-1,y))
+	       end
+	    elseif dir == direction.down then
+	       if y == self.buff_h-1 then
+		  self:set_char(x,self.buff_h-y-1,0)
+	       else
+		  self:set_char(x,self.buff_h-y-1,self:scr(x,(self.buff_h-y-1)-1))
+	       end
+	    elseif dir == direction.left then
+	       if x == self.buff_w-1 then
+		  self:set_char(x,y,0)
+	       else
+		  self:set_char(x,y,self:scr(x+1,y))
+	       end
 	    end
 	 end
       end
