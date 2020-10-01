@@ -4,9 +4,9 @@ function love.load()
    love.window.setTitle("kawakudari")
    love.window.setMode(512,384)
    love.window.setVSync(true)
-   frame = 0
    
-   std15 = newStd15(512,384,32,24)
+   std15 = new_std15(512,384,32,24)
+   frame = 0
    x = 15
    running = true
    
@@ -26,11 +26,11 @@ function love.update()
       
       std15:locate(x,5)
       std15:putc(string.byte('0'))
-      std15:locate(math.floor(math.random(32)),23)
+      std15:locate((math.random(32)-1),23)
       std15:putc(string.byte('*'))
       std15:scroll()
 
-      if not (std15:scr(x,5) == string.byte('\0')) then
+      if not (std15:scr(x,5) == 0) then
 	 running = false
       end
       
@@ -39,6 +39,6 @@ function love.update()
 end
 
 function love.draw()
-   std15:pAppletDraw()
+   std15:draw_screen()
 end
 
