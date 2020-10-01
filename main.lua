@@ -28,7 +28,7 @@ function love.update()
       std15:putc(string.byte('0'))
       std15:locate((math.random(32)-1),23)
       std15:putc(string.byte('*'))
-      std15:scroll()
+      std15:scroll(direction.up)
 
       if not (std15:scr(x,5) == 0) then
 	 std15:locate(0,23)
