@@ -19,6 +19,24 @@ function new_std15 (screen_w, screen_h, buff_w, buff_h)
 
    o.putc = function (self,c)
       self:set_char(self.cursor_x,self.cursor_y,c)
+      if self.cursor_x < self.buff_w -1 then
+	 self.cursor_x = self.cursor_x +1
+      else
+	 if self.cursor_y < self.buff_h -1 then
+	    self.cursor_x = 0
+	    self.cursor_y = self.cursor_y +1
+	 end
+      end
+   end
+
+   o.putstr = function (self,s)
+      for c in s:gmatch "." do
+	 self:putc(string.byte(c))
+      end
+   end
+
+   o.putnum = function (self,n)
+      self:putstr(tostring(n))
    end
 
    o.scr = function (self,x,y)
