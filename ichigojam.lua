@@ -93,8 +93,12 @@ function new_std15 (screen_w, screen_h, buff_w, buff_h)
       cx = math.floor(x / 2)
       cy = math.floor(y / 2)
       c = self:scr(cx,cy)
-      b = 2^(((y % 2)*2) + (x % 2))
-      d = ((math.floor(c / 0x10) == 0x8) and c or 0x80) + b
+      b = 2 ^ (((y % 2)*2) + (x % 2)) -- 1, 2, 4, 8
+      if math.floor(c / 0x10) == 0x8 then
+	 d = ((math.floor(c/b) % 2) == 0) and (c + b) or c
+      else
+	 d = 0x80 + b
+      end
       self:set_char(cx,cy,d)
    end
 
