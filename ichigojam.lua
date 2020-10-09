@@ -108,8 +108,9 @@ function new_std15 (screen_w, screen_h, buff_w, buff_h)
 
    o.draw_char = function (self, cx, cy, c)
       local glyph = ICHIGOJAM_FONT[c+1]
-      local hi_bits = tonumber(string.sub(glyph,0,8),16)
-      local lo_bits = tonumber(string.sub(glyph,8),16)
+      local hi_bits = tonumber(string.sub(glyph,1,8),16)
+      local lo_bits = tonumber(string.sub(glyph,9),16)
+
       for y = 0, CHAR_H-1 do
 	 local line
 	 if y < 4 then
